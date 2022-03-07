@@ -6,7 +6,7 @@ import (
 )
 
 // MaxListlmit maximum number of listings
-const MaxListlmit = 200
+const MaxListLimit = 200
 
 // GetRequest for single Event object
 type GetRequest struct {
@@ -71,7 +71,7 @@ func (e *EventResponseWrapper) JSON() []byte {
 // StatusCode returns status code of the event
 func (e *EventResponseWrapper) StatusCode() int {
 	if e == nil || e.Code == 0 {
-		return http.StatusOk
+		return http.StatusOK
 	}
 	return e.Code
 }

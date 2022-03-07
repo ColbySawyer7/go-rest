@@ -5,17 +5,19 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+
+	"github.com/ColbySawyer7/go-rest/objects"
 )
 
 // IEventStore is the database interface for storage of Event objects
 type IEventStore interface {
-	Get(ctx context.Context, in *object.Event) (*object.Event, error)
-	List(ctx context.Context, in *object.Event) (*object.Event, error)
-	Create(ctx context.Context, in *object.Event) (*object.Event, error)
-	UpdateDetails(ctx context.Context, in *object.Event) (*object.Event, error)
-	Cancel(ctx context.Context, in *object.Event) (*object.Event, error)
-	Reschedule(ctx context.Context, in *object.Event) (*object.Event, error)
-	Delete(ctx context.Context, in *object.Event) (*object.Event, error)
+	Get(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	List(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	Create(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	UpdateDetails(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	Cancel(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	Reschedule(ctx context.Context, in *objects.Event) (*objects.Event, error)
+	Delete(ctx context.Context, in *objects.Event) (*objects.Event, error)
 }
 
 func init() {

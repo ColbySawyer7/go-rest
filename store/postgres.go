@@ -18,7 +18,7 @@ type pg struct {
 
 // NewPostgresEventStore returns a postgres implementation of Event store
 func NewPostgresEventStore(conn string) IEventStore {
-	// Create database connection
+	// create database connection
 	db, err := gorm.Open(postgres.Open(conn),
 		&gorm.Config{
 			Logger: logger.New(
@@ -31,12 +31,12 @@ func NewPostgresEventStore(conn string) IEventStore {
 		},
 	)
 	if err != nil {
-		panic("Enable connection to database: " + err.Error())
+		panic("Enable to connect to database: " + err.Error())
 	}
 	if err := db.AutoMigrate(&objects.Event{}); err != nil {
-		panic("Enable migration to database: " + err.Error())
+		panic("Enable to migrate database: " + err.Error())
 	}
-	//return store implementation
+	// return store implementation
 	return &pg{db: db}
 }
 

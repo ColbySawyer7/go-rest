@@ -5,7 +5,7 @@ FROM golang:alpine as builder
 ENV GO111MODULE=on
 
 # Install Git
-RUN apk update && apk add --no-cache Git
+RUN apk update && apk add --no-cache git
 
 #Set Working Directory
 WORKDIR /app
@@ -20,7 +20,7 @@ WORKDIR /app
 COPY go.mod ./
 COPY go.sum ./
 
-RUN go mode download
+RUN go mod download
 
 # Now, copy the source code
 COPY . .
