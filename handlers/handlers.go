@@ -24,6 +24,7 @@ type handler struct {
 	store store.IEventStore
 }
 
+// NewEventHandler return current IEventHandler implementation
 func NewEventHandler(store store.IEventStore) IEventHandler {
 	return &handler{store: store}
 }
@@ -31,10 +32,10 @@ func NewEventHandler(store store.IEventStore) IEventHandler {
 func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	if id == "" {
-		WriteError(w, errors.ErrValidEventIdIsRequired)
+		WriteError(w, errors.ErrValidEventIDIsRequired)
 		return
 	}
-	evt, err := h.store.Get(r.Context(), &objects.GetRequest{Id: id})
+	evt, err := h.store.Get(r.Context(), &objects.GetRequest{ID: id})
 	if err != nil {
 		WriteError(w, err)
 		return
@@ -99,7 +100,7 @@ func (h *handler) UpdateDetails(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// check if event exist
-	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Id: req.Id}); err != nil {
+	if _, err := h.store.Get(r.Context(), &objects.GetRequest{ID: req.ID}); err != nil {
 		WriteError(w, err)
 		return
 	}
@@ -147,7 +148,7 @@ func (h *handler) Reschedule(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// check if event exist
-	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Id: req.Id}); err != nil {
+	if _, err := h.store.Get(r.Context(), &objects.GetRequest{ID: req.ID}); err != nil {
 		WriteError(w, err)
 		return
 	}
@@ -162,17 +163,17 @@ func (h *handler) Reschedule(w http.ResponseWriter, r *http.Request) {
 func (h *handler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	if id == "" {
-		WriteError(w, errors.ErrValidEventIdIsRequired)
+		WriteError(w, errors.ErrValidEventIDIsRequired)
 		return
 	}
 
 	// check if event exist
-	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Id: id}); err != nil {
+	if _, err := h.store.Get(r.Context(), &objects.GetRequest{ID: id}); err != nil {
 		WriteError(w, err)
 		return
 	}
 
-	if err := h.store.Delete(r.Context(), &objects.DeleteRequest{Id: id}); err != nil {
+	if err := h.store.Delete(r.Context(), &objects.DeleteRequest{ID: id}); err != nil {
 		WriteError(w, err)
 		return
 	}

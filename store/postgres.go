@@ -90,7 +90,7 @@ func (p *pg) UpdateDetails(ctx context.Context, in *objects.UpdateDetailsRequest
 		UpdatedOn:   p.db.NowFunc(),
 	}
 	return p.db.WithContext(ctx).Model(evt).
-		Select("name", "description", "website", "address", "phone", "updated_on").
+		Select("name", "description", "website", "address", "phone_number", "updated_on").
 		Updates(evt).
 		Error
 }

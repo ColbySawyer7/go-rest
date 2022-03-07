@@ -11,16 +11,19 @@ import (
 	"github.com/ColbySawyer7/go-rest/objects"
 )
 
+// Response helper used to write reponse
 type Response interface {
-	Json() []byte
+	JSON() []byte
 	StatusCode() int
 }
 
+// WriteResponse write the response to http response stream
 func WriteResponse(w http.ResponseWriter, res Response) {
 	w.WriteHeader(res.StatusCode())
-	_, _ = w.Write(res.Json())
+	_, _ = w.Write(res.JSON())
 }
 
+// WriteError long the error and write the response to http response stream
 func WriteError(w http.ResponseWriter, err error) {
 	res, ok := err.(*errors.Error)
 	if !ok {
@@ -30,6 +33,7 @@ func WriteError(w http.ResponseWriter, err error) {
 	WriteResponse(w, res)
 }
 
+// IntFromString string to int
 func IntFromString(w http.ResponseWriter, v string) (int, error) {
 	if v == "" {
 		return 0, nil
@@ -42,6 +46,7 @@ func IntFromString(w http.ResponseWriter, v string) (int, error) {
 	return res, err
 }
 
+// Unmarshal json
 func Unmarshal(w http.ResponseWriter, data []byte, v interface{}) error {
 	if d := string(data); d == "null" || d == "" {
 		WriteError(w, errors.ErrObjectIsRequired)
