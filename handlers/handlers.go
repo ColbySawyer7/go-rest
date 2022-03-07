@@ -114,17 +114,17 @@ func (h *handler) UpdateDetails(w http.ResponseWriter, r *http.Request) {
 func (h *handler) Cancel(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Query().Get("id")
 	if id == "" {
-		WriteError(w, errors.ErrValidEventIdIsRequired)
+		WriteError(w, errors.ErrValidEventIDIsRequired)
 		return
 	}
 
 	// check if event exist
-	if _, err := h.store.Get(r.Context(), &objects.GetRequest{Id: id}); err != nil {
+	if _, err := h.store.Get(r.Context(), &objects.GetRequest{ID: id}); err != nil {
 		WriteError(w, err)
 		return
 	}
 
-	if err := h.store.Cancel(r.Context(), &objects.CancelRequest{Id: id}); err != nil {
+	if err := h.store.Cancel(r.Context(), &objects.CancelRequest{ID: id}); err != nil {
 		WriteError(w, err)
 		return
 	}
